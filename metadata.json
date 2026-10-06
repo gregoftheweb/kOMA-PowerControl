@@ -1,0 +1,20 @@
+{
+  "KPackageStructure": "Plasma/Applet",
+  "KPlugin": {
+    "Id": "com.columbiafoundry.komapowercontrol",
+    "Name": "kOMA Power Control",
+    "Description": "Battery, power profiles, and PLAID Power keep-awake control",
+    "Icon": "system-shutdown",
+    "Authors": [
+      {
+        "Name": "Columbia Foundry",
+        "Website": "https://columbiafoundry.com"
+      }
+    ],
+    "License": "MIT",
+    "Version": "0.1.0",
+    "Category": "System Information",
+    "Website": "https://github.com/gregoftheweb/kOMA-PowerControl"
+  },
+  "X-Plasma-API-Minimum-Version": "6.0"
+}

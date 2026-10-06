@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+set -euo pipefail
+repo="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+data="${XDG_DATA_HOME:-$HOME/.local/share}"
+config="${XDG_CONFIG_HOME:-$HOME/.config}"
+id=com.columbiafoundry.komapowercontrol
+if [[ -d "$data/plasma/plasmoids/$id" ]]; then
+    kpackagetool6 --type Plasma/Applet --upgrade "$repo"
+else
+    kpackagetool6 --type Plasma/Applet --install "$repo"
+fi
+mkdir -p "$HOME/.local/bin" "$config/systemd/user"
+ln -sfn "$data/plasma/plasmoids/$id/contents/code/komapowercontrol" "$HOME/.local/bin/komapowercontrol"
+cat > "$config/systemd/user/komapowercontrol-plaid.service" <<UNIT
+[Unit]
+Description=kOMA PLAID Power keep-awake override
+PartOf=graphical-session.target
+After=graphical-session.target
+
+[Service]
+Type=dbus
+BusName=com.columbiafoundry.komapowercontrol.Plaid
+ExecStart=/usr/bin/python3 "$data/plasma/plasmoids/$id/contents/code/komapowercontrol" hold
+Restart=on-failure
+RestartSec=2
+TimeoutStartSec=15
+TimeoutStopSec=10
+UNIT
+systemctl --user daemon-reload
+if [[ "${1:-}" != --no-place ]]; then python3 "$repo/bin/place-widget"; fi
