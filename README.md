@@ -20,3 +20,10 @@ shortcut is supplied by `bin/install`; the widget itself uses its bundled helper
 
 Release package: `dist/com.columbiafoundry.komapowercontrol-0.1.0.plasmoid`.
 Store submission copy is in `dev/kde-store-listing.md`.
+
+## Screenshot
+
+![Power Control on AC power](screenshots/power-control-popup.png)
+
+Captured on a desktop without a battery or power-profile provider. Unsupported
+controls are disabled; laptop battery metrics depend on UPower/hardware support.
